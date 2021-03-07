@@ -242,6 +242,7 @@ def plotPitches(plotdf):
     plt.xlim((-3, 3))
     plt.gca().add_patch(strikezone)
     plt.legend(bbox_to_anchor = (1,1), loc = 'upper left', ncol = 1)
+    plt.show()
 
 #find what pitchers are in the data, this will show us the top 10 pitchers by total pitches thrown
 print(statcast.groupby('player_name', as_index = False)['pitch_type'].count().sort_values(by = 'pitch_type', ascending = False).head(10))
@@ -251,25 +252,20 @@ cole = statcast[statcast['player_name'] == 'Gerrit Cole']
 
 #plot pitchers pitches
 plotPitches(cole)
-plt.show()
-
 
 #plot pitches thrown against right-handed batters
 cole_vR = cole[cole['stand'] == 'R']
 plotPitches(cole_vR)
-plt.show()
 
 #plot pitches thrown against left-handed batters
 cole_vL = cole[cole['stand'] == 'L']
 plotPitches(cole_vL)
-plt.show()
 
 #plot pitches thrown in certain counts
 balls = 0
 strikes = 2
-cole_count = cole[(cole['strikes'] == strikes) & cole['balls'] == balls)]
+cole_count = cole[(cole['strikes'] == strikes) & (cole['balls'] == balls)]
 plotPitches(cole_count)
-plt.show()
 
 
 
