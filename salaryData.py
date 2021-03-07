@@ -38,3 +38,36 @@ ax.set_ylabel('Dollars in billions', color = 'black')
 ax.set_title('Money spent in the MLB', color = 'black')
 plt.show()
 
+
+plt.style.use('seaborn-whitegrid')
+salaries_teams_years = salaries.groupby(['teamID', 'yearID'], as_index = False).sum()
+athletics = salaries_teams_years.loc[salaries_teams_years['teamID'] == 'OAK']
+yankees = salaries_teams_years.loc[salaries_teams_years['teamID'] == 'NYY']
+
+fig, ax = plt.subplots(figsize=(10, 7))
+
+ax.plot(yankees['yearID'], yankees['salary']/1000000, label = 'Yankees', color = NYY_SECONDARY_COLOR, linewidth = 1.5)
+ax.plot(athletics['yearID'], yankees['salary']/1000000, label = 'Athletics', color = OAKLAND_SECONDARY_COLOR, linewidth = 1.5)
+
+#getting the line data for the Yankees line plot
+line_one = ax.get_lines()[0].get_xydata()
+line_two = ax.get_lines()[1].get_xydata()
+
+x_1, y_1 = line_one[:, 0], line_one[:, 1]
+x_2, y_2 = line_two[:, 0], line_two[:, 1]
+
+ax.fill_between(x_1, y_1, color = NYY_PRIMARY_COLOR, alpha = 0.2)
+ax.fill_between(x_2, y_2, color = OAKLAND_PRIMARY_COLOR, alpha = 0.2)
+
+ax.set_xlabel('Year')
+ax.set_ylabel('Team Salary in Millions')
+ax.set_title('Money Spent by Yankees and A\'', color = 'black')
+ax.set_xlim([1985,2016])
+
+ax.ticklabel_format(useOffset=False)
+
+ax.legend(loc = 'upper left')
+
+
+
+
