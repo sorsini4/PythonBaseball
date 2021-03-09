@@ -61,7 +61,7 @@ ax.set_xlim([1985, 2016])
 
 #prevent scientific notation
 #reading: https://stackoverflow.com/questions/28371674/prevent-scientific-notation-in-matplotlib-pyplot
-ax.ticklabel_format(useOffset = False)
+ax.ticklabel_format(useOffset = False, style = 'plain')
 
 ax.legend(loc = 'upper left');
 plt.savefig('salaryDataForCardsAndAs.png')
@@ -94,7 +94,7 @@ ax.scatter(x = oak['yearID'], y = oak['salary/win'], color = OAK_PRIMARY_COLOR, 
 ax.scatter(x = stl['yearID'], y = stl['salary/win'], color = STL_PRIMARY_COLOR, alpha = 0.6, edgecolors = STL_SECONDARY_COLOR, linewidth = 1.5, s = stl['W'] * 1.5)
 
 #preventing scientific notation again
-ax.ticklabel_format(useOffset = False)
+ax.ticklabel_format(useOffset = False, style = 'plain')
 
 ax.set_xlim([1985, 2016])
 ax.set_ylim(0)
@@ -107,6 +107,30 @@ fig.text(0.8, -.05, 'Point size is a function of team wins', ha = 'center')
 
 plt.show()
 plt.savefig('WinsVsMoneySpent.png')
+
+#cardinals spend more on players, but also have much more attendance outtings, does this make up for their higher payroll?
+oak_stl['salary/fans'] = oak_stl['salary'] / oak_stl['attendance']
+
+plt.style.use('fivethirtyeight')
+
+fig, ax = plt.subplots(figsize = (10, 7))
+
+#prevent scientific notation in the axis (hopefully this works, it didnt in the above graph)
+ax.ticklabel_format(useOffset = False, style = 'plain')
+
+ax.plot(oak['yearID'], oak['attendance'], color = OAK_SECONDARY_COLOR)
+ax.plot(stl['yearID'], stl['attendance'], color = STL_SECONDARY_COLOR)
+
+ax.legend(['OAK', 'STL'])
+ax.set_title('Oakland and St. Louis attendance')
+
+plt.show()
+plt.savefig('OaklandVsSTLAttendance.png')
+
+
+
+
+
 
 
 
