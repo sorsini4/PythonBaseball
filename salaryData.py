@@ -33,28 +33,26 @@ stl = salaries_teams_years.loc[salaries_teams_years['teamID'] == 'SLN']
 
 fig, ax = plt.subplots(figsize = (10, 7))
 
-ax.plot(stl['yearID'], stl['salary']/1000000, label = 'STL', color = STL_SECONDARY_COLOR, linewidth = 1.5);
-ax.plot(oak['yearID'], oak['salary']/1000000, label = 'OAK', color = OAKLAND_SECONDARY_COLOR, linewidth = 1.5);
+ax.plot(stl['yearID'], stl['salary']/1000000, label = 'STL', color = STL_SECONDARY_COLOR, linewidth = 1.5)
+ax.plot(oak['yearID'], oak['salary']/1000000, label = 'OAK', color = OAKLAND_SECONDARY_COLOR, linewidth = 1.5)
 
-# getting the line data for the Cardinals line plot
-line_1 = ax.get_lines()[0].get_xydata()
-
-# getting the line data for the Oakland A's lineplot
+# getting the line data for the Cardinals, A's, and line plot
 # ax.get_lines docs -> https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.get_lines.html
 # this function returns a list of lines on the current axis.
 # we can then call get xy_data() to get the x and y data
 # line.get_xydata docs -> https://www.kite.com/python/docs/matplotlib.lines.Line2D.get_xydata
 # it's in the form of a 2-dimensional Numpy Array, where the first column is the x data and the second column
 # is the y data
-line_2 = ax.get_lines()[1].get_xydata()
+line_one = ax.get_lines()[0].get_xydata()
+line_two = ax.get_lines()[1].get_xydata()
 
-x_1, y_1 = line_1[:, 0], line_1[:, 1]
-x_2, y_2 = line_2[:, 0], line_2[:, 1]
+x_one, y_one = line_one[:, 0], line_one[:, 1]
+x_two, y_two = line_two[:, 0], line_two[:, 1]
 
 # fill the area underneath the curve for both Cardinals and A's
 # ax.fill_between docs -> https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.fill_between.html
-ax.fill_between(x_1, y_1, color = STL_PRIMARY_COLOR, alpha = 0.2)
-ax.fill_between(x_2, y_2, color = OAKLAND_PRIMARY_COLOR, alpha = 0.2)
+ax.fill_between(x_one, y_one, color = STL_PRIMARY_COLOR, alpha = 0.2)
+ax.fill_between(x_two, y_two, color = OAKLAND_PRIMARY_COLOR, alpha = 0.2)
 
 ax.set_xlabel('Year');
 ax.set_ylabel('Team Salary in Millions',);
@@ -66,4 +64,6 @@ ax.set_xlim([1985, 2016])
 ax.ticklabel_format(useOffset = False)
 
 ax.legend(loc = 'upper left');
+plt.savefig('salaryDataForCardsAndAs.png')
 plt.show()
+
