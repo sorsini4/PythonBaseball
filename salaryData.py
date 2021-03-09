@@ -67,3 +67,8 @@ ax.legend(loc = 'upper left');
 plt.savefig('salaryDataForCardsAndAs.png')
 plt.show()
 
+
+#looking at the cardinals top 10 years in payroll 
+print(stl.sort_values(by = 'salary', ascending = False).head(10))
+
+
