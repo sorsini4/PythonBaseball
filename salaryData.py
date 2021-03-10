@@ -108,9 +108,7 @@ fig.text(0.8, -.05, 'Point size is a function of team wins', ha = 'center')
 plt.show()
 plt.savefig('WinsVsMoneySpent.png')
 
-#cardinals spend more on players, but also have much more attendance outtings, does this make up for their higher payroll?
-oak_stl['salary/fans'] = oak_stl['salary'] / oak_stl['attendance']
-
+#plotting fan attendance
 plt.style.use('fivethirtyeight')
 
 fig, ax = plt.subplots(figsize = (10, 7))
@@ -127,8 +125,22 @@ ax.set_title('Oakland and St. Louis attendance')
 plt.show()
 plt.savefig('OaklandVsSTLAttendance.png')
 
+#cardinals spend more on players, but also have much more attendance outtings, does this make up for their higher payroll?
+oak['salary/attend'] = oak['salary'] / oak['attendance']
+stl['salary/attend'] = stl['salary'] / stl['attendance']
 
+fig, ax = plt.subplots(figsize = (10, 8))
 
+ax.ticklabel_format(useOffset = False, style = 'plain')
+
+ax.plot(oak['yearID'], oak['salary/attend'], color = OAK_SECONDARY_COLOR)
+ax.plot(stl['yearID'], stl['salary/attend'], color = STL_SECONDARY_COLOR)
+
+ax.legend(['OAK', 'STL'], loc = 'upper left')
+ax.set_title('Dollar spent per fan for A\'s and Cardinals')
+
+plt.savefig('dollarSpentPerFan.png')
+plt.show()
 
 
 
