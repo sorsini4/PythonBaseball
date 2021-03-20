@@ -142,11 +142,24 @@ ax.set_title('Dollar spent per fan for A\'s and Cardinals')
 plt.savefig('dollarSpentPerFan.png')
 plt.show()
 
+plt.style.use('ggplot')
+money_wins_11 = money_wins.loc[money_wins['yearID'] == 2011]
 
+#nl and al dataframs
+nl = money_wins_11.loc[money_wins_11['lgID'] == 'NL']
+al = money_wins_11.loc[money_wins_11['lgID'] == 'AL']
 
+fig, ax = plt.subplots()
 
+ax.scatter(nl['salary']/100000, nl['W'], color = 'blue', label = 'NL')
+ax.scatter(al['salary']/100000, al['W'], color = 'red', label = 'AL')
 
+ax.set_xlabel('Salary (Millions)')
+ax.set_ylabel('Wins')
+ax.set_title('Salary vs Wins')
 
+ax.legend()
+plt.show()
 
 
 
